@@ -2,7 +2,7 @@ import java.util.*;
 
 public class BinarySearch{
   //Find the target in a rotated sorted array
-    public int search(int[] nums, int target) {
+    public static int search(int[] nums, int target) {
         int l = 0,r = nums.length-1;
         while(r>=l){
             int mid = l + (r-l)/2;
@@ -27,7 +27,7 @@ public class BinarySearch{
      Integers in each row are sorted from left to right.
      The first integer of each row is greater than the last integer of the previous row.
   */
-    public boolean searchMatrix(int[][] matrix, int target) {
+    public static boolean searchMatrix(int[][] matrix, int target) {
           int m = matrix.length;
           int n = matrix[0].length;
           int l = 0, r = (m * n) - 1;

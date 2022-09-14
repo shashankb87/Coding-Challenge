@@ -304,6 +304,50 @@ public class LinkedLists {
         }
         return head;
     }
+    
+    /* https://leetcode.com/problems/reorder-list/
+    You are given the head of a singly linked-list. The list can be represented as:
+
+L0 → L1 → … → Ln - 1 → Ln
+Reorder the list to be on the following form:
+
+L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …
+You may not modify the values in the list's nodes. Only nodes themselves may be changed.
+    */
+    public static void reorderList(Node head) {
+        Node prev = null;
+        Node curr = head;
+        Node fast = head;
+        //Find the middle of the list
+        while(fast != null && fast.next != null){
+            prev = curr;
+            curr = curr.next;
+            fast = fast.next.next;
+        }
+        if(fast != null){
+            prev = curr;
+            curr = curr.next;
+        }
+        prev.next = null;
+        //Reverse the second half of the list
+        Node p = null;
+        while(curr != null){
+            Node next = curr.next;
+            curr.next = p;
+            p = curr;
+            curr = next; 
+        } 
+        //Merge the two halves
+        curr = p;
+        p = head;
+        while(p != null && curr != null){
+            Node next = p.next;
+            p.next = curr;
+            curr = curr.next;
+            p.next.next = next;
+            p = next;
+        }
+    }
 
     //Data structure to represent a linked list node.
     static class Node{

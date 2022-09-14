@@ -140,6 +140,31 @@ public class LinkedLists {
         }
         return true;
     }
+    
+    //Reverse Linked List - Iterative
+    public static Node reverseList(ListNode head) {
+        Node node = head,pre = null;
+        while(node != null){
+            Node next = node.next;
+            node.next = pre;
+            pre = node;
+            node = next;
+        }
+        return pre;
+    }
+    
+    //Reverse LinkedList - Recursive
+    public ListNode reverseList(ListNode head) {
+        if(head == null)return null;
+        ListNode newHead = reverseList(head.next);
+        if(newHead != null){
+            head.next.next = head;
+        }else{
+            newHead = head;
+        }
+        head.next = null;
+        return newHead;
+    }
 
     //Sum two numbers represented by linked lists. 7215 is represented by 5->1->2->7
     public static int sumNumbers(Node n1, Node n2){

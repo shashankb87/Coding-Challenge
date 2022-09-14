@@ -11,6 +11,27 @@ public class ArraysStrings {
         //rotateMatrix(matrix);
         System.out.println(isRotation("waterbottle","rbottlewate"));
     }
+    
+    /*https://leetcode.com/problems/product-of-array-except-self/
+    Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+You must write an algorithm that runs in O(n) time and without using the division operation.
+    */
+    public int[] productExceptSelf(int[] nums) {
+        int[] ans = new int[nums.length];
+        ans[0] = 1;
+        for(int i = 1;i<nums.length;++i){
+            ans[i] = ans[i-1]*nums[i-1];
+        }
+        int p = 1;
+        for(int i = nums.length-2;i>=0;--i){
+            p *= nums[i+1];
+            ans[i] *= p;
+        }
+        return ans;
+    }
 
     //Return is s1 is a rotation of s2. ex. waterbottle, rbottlewate
     public static boolean isRotation(String s1, String s2){

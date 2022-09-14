@@ -275,6 +275,35 @@ public class LinkedLists {
             head = head.next;
         }
     }
+    //Merge K sorted linked lists and return the head
+    public static Node mergeKLists(ListNode[] lists) {
+        if(lists==null || lists.length == 0)return null;
+        PriorityQueue<Node> q = new PriorityQueue<>(lists.length,new Comparator<Node>(){
+            public int compare(Node n1, Node n2){
+                return n1.val - n2.val;
+            }
+        });
+        for(Node node : lists)
+            if(node != null)q.add(node);
+        
+        Node head = null;
+        Node curr = null;
+        while(!q.isEmpty()){
+            Node node = q.poll();
+            if(curr == null){
+                curr = node;
+                head = node;
+            }else{
+                curr.next = node;
+                curr = curr.next;
+            }
+            
+            if(curr.next != null){
+                q.add(curr.next);
+            }
+        }
+        return head;
+    }
 
     //Data structure to represent a linked list node.
     static class Node{

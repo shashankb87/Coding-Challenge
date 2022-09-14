@@ -45,4 +45,28 @@ public class BinarySearch{
           }
           return false;
       }
+  /* https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+  Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:
+
+[4,5,6,7,0,1,2] if it was rotated 4 times.
+[0,1,2,4,5,6,7] if it was rotated 7 times.
+
+Given the sorted rotated array nums of unique elements, return the minimum element of this array.
+  */
+    public int findMin(int[] nums) {
+        int l = 0, r = nums.length-1;
+        while(l<=r){
+            int m = l + (r-l)/2;
+            if(nums[m] >= nums[l]){
+                if(nums[r] >= nums[m]){
+                    return nums[l];
+                }else{
+                    l = m + 1;
+                }
+            }else{
+                r = m;
+            }
+        }
+        return -1;
+    }
 }

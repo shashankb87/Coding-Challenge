@@ -390,6 +390,21 @@ You may not modify the values in the list's nodes. Only nodes themselves may be 
             p = next;
         }
     }
+    //Remove nth node from the end
+    private ListNode removeNth(ListNode head, int n, Counter c){
+        if(head == null)return null;
+        ListNode next = removeNth(head.next,n,c);
+        c.count++;
+        if(c.count == n){
+            return next;
+        }
+        head.next = next;
+        return head;
+    }
+    
+    static class Counter{
+        public int count = 0;
+    }
 
     //Data structure to represent a linked list node.
     static class Node{

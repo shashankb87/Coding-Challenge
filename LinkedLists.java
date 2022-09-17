@@ -124,19 +124,20 @@ public class LinkedLists {
 
     //Iteratively calculate if a linked list is a palindrome
     public static boolean isPalindrome(Node head){
-        Node slow = head, fast = head;
         Stack<Integer> s = new Stack<>();
+        Node fast = head;
         while(fast != null && fast.next != null){
-            s.push(slow.value);
+            s.add(head.value);
+            head = head.next;
             fast = fast.next.next;
-            slow = slow.next;
         }
-        if(fast != null)
-            slow = slow.next;
-        while(slow != null){
-            if(slow.value != s.pop())
+        if(fast != null){
+            head = head.next;
+        }
+        while(head != null){
+            if(head.value != s.pop())
                 return false;
-            slow = slow.next;
+            head = head.next;
         }
         return true;
     }

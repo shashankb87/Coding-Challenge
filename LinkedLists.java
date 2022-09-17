@@ -200,7 +200,49 @@ public class LinkedLists {
         }
         return a;
     }
-
+    //Sum two numbers represented by linked lists. 7215 is represented by 7->2->1->5
+    public static Node sumLists(Node n1, Node n2){
+        Stack<Integer> s1 = new Stack<>(), s2 = new Stack<>(), ans = new Stack<>();
+        while(n1 != null){
+            s1.add(n1.value);
+            n1 = n1.next;
+        }
+        while(n2 != null){
+            s2.add(n2.value);
+            n2 = n2.next;
+        }
+        int carry = 0;
+        while(!s1.isEmpty() || !s2.isEmpty() || carry > 0){
+            int i1 = s1.isEmpty() ? 0 : s1.pop();
+            int i2 = s2.isEmpty() ? 0 : s2.pop();
+            int res = i1 + i2 + carry;
+            ans.add(res%10);
+            carry = res/10;
+        }
+        Node result = null;
+        Node curr = null;
+        while(!ans.isEmpty()){
+            if(curr == null){
+                result = new Node(ans.pop());
+                curr = result;
+            }else{
+                curr.next = new Node(ans.pop());
+                curr = curr.next;
+            }
+        }
+        return result;
+    }
+    
+    //get the length of the linkedlist
+    public static int length(Node head){
+        int l = 0;
+        while(head != null){
+            l++;
+            head = head.next;
+        }
+        return l;
+    }
+    
     //Partition the linkedlist around a value x.
     public static Node partitionList(Node head,int x){
         Node beforeHead = null;

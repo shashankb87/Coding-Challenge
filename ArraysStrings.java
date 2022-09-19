@@ -131,4 +131,45 @@ You must write an algorithm that runs in O(n) time and without using the divisio
         }
         return builder.length() >= s.length() ? s : builder.toString();
     }
+    /* https://leetcode.com/problems/valid-sudoku/
+    Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be validated according to the following rules:
+
+Each row must contain the digits 1-9 without repetition.
+Each column must contain the digits 1-9 without repetition.
+Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without repetition.
+Note:
+
+A Sudoku board (partially filled) could be valid but is not necessarily solvable.
+Only the filled cells need to be validated according to the mentioned rules.
+    */
+    public static boolean isValidSudoku(char[][] board) {
+        HashSet[] rows = new HashSet[9];
+        HashSet[] cols = new HashSet[9];
+        HashSet[] grids = new HashSet[9];
+        
+        for(int i = 0;i<9;++i){
+            rows[i] = new HashSet<Integer>();
+            cols[i] = new HashSet<Integer>();
+            grids[i] = new HashSet<Integer>();
+        }
+        
+        for(int i = 0;i<9;++i){
+            for(int j = 0;j<9;++j){
+                char c = board[i][j];
+                if(c == '.')
+                    continue;
+                if(rows[i].contains(c))
+                    return false;
+                if(cols[j].contains(c))
+                    return false;
+                int grid = (i/3)*3 + j/3;
+                if(grids[grid].contains(c))
+                    return false;
+                rows[i].add(c);
+                cols[j].add(c);
+                grids[grid].add(c);
+            }
+        }
+        return true;
+    }
 }

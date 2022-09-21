@@ -47,6 +47,24 @@ public class Tree {
         sumMap.put(sum,sumMap.get(sum)-1);
         return pathCount;
     }
+    
+    //Check if a binary tree is balanced i.e. length(left subtree) - length(right subtree) <= 1;
+    public boolean isBalanced(TreeNode root) {
+        return isBalanced(root,new Counter());
+    }
+    
+    private boolean isBalanced(TreeNode root,Counter c){
+        if(root == null)return true;
+        Counter left = new Counter(), right = new Counter();
+        boolean l = isBalanced(root.left,left);
+        boolean r = isBalanced(root.right,right);
+        c.count = Math.max(left.count,right.count)+1;
+        return Math.abs(left.count-right.count) <= 1 && l && r;
+    }
+    
+    class Counter{
+        public int count = 0;
+    }
   
   //Is the second tree a subtree of the first one? size(first) >> size(second)
   //Using preorder traversal followed by String.substring. space and time - O(NlogN + MlogM)

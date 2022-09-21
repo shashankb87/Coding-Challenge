@@ -191,21 +191,21 @@ public class Tree {
   
     //Construct a Binary Search Tree from the pre-order and in-order values
     public static TreeNode buildTree(int[] preorder, int[] inorder) {
-        return build(preorder,0,preorder.length,inorder,0,inorder.length);
+        return build(preorder,0,preorder.length-1,inorder,0,inorder.length-1);
     }
     
-    private static TreeNode build(int[] preorder, int i1, int j1,int[] inorder, int i2, int j2){
-        if(i1 >= j1 || i2 >= j2)return null;
-        TreeNode root = new TreeNode(preorder[i1]);
-        i1++;
-        int x = i2;
-        int y = i1;
-        while(inorder[x] != preorder[i1-1]){
-            x++;
-            y++;
+    private static TreeNode build(int[] preorder, int ps, int pe, int[] inorder, int is, int ie){
+        if(ps > pe || is > ie)return null;
+        TreeNode root = new TreeNode(preorder[ps]);
+        int leftTreeSize = 0;
+        for(int i = is;i<=ie;++i){
+            if(inorder[i] == preorder[ps]){
+                break;
+            }
+            leftTreeSize++;
         }
-        root.left = build(preorder,i1,y,inorder,i2,x);
-        root.right = build(preorder,y,j1,inorder,x+1,j2);
+        root.left = build(preorder,ps+1,ps+leftTreeSize,inorder,is,is+leftTreeSize-1);
+        root.right = build(preorder,ps+leftTreeSize+1,pe,inorder,is+leftTreeSize+1,ie);
         return root;
     }
   

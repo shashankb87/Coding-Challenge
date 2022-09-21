@@ -226,6 +226,27 @@ public class Tree {
         root.right = build(preorder,ps+leftTreeSize+1,pe,inorder,is+leftTreeSize+1,ie);
         return root;
     }
+    
+    /*
+    Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+
+A valid BST is defined as follows:
+
+The left subtree of a node contains only nodes with keys less than the node's key.
+The right subtree of a node contains only nodes with keys greater than the node's key.
+Both the left and right subtrees must also be binary search trees.
+    */
+    public boolean isValidBST(TreeNode root) {
+        return isValid(root,null,null);
+    }
+    
+    private boolean isValid(TreeNode root,Integer min, Integer max){
+        if(root == null)return true;
+        if((min == null || min < root.val) && (max == null || max > root.val)){
+            return isValid(root.left,min,root.val) && isValid(root.right,root.val,max);
+        }
+        return false;
+    }
   
     //Data Structure representing a node in a binary tree
     static class TreeNode{

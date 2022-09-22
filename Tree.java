@@ -227,6 +227,35 @@ public class Tree {
         return root;
     }
     
+    /* https://leetcode.com/problems/binary-tree-right-side-view/
+    Given the root of a binary tree, imagine yourself standing on the right side of it, 
+    return the values of the nodes you can see ordered from top to bottom.
+    */
+    public List<Integer> rightSideView(TreeNode root) {
+        Queue<TreeNode> q1 = new LinkedList<>(),q2 = new LinkedList<>();
+        List<Integer> ans = new ArrayList<>();
+        if(root != null)q1.add(root);
+        boolean flag = true;
+        while(!q1.isEmpty()){
+            TreeNode n = q1.poll();
+            if(flag){
+                ans.add(n.val);
+                flag = false;
+            }
+            if(n.right != null)
+                q2.add(n.right);
+            if(n.left != null)
+                q2.add(n.left);
+            if(q1.isEmpty()){
+                Queue<TreeNode> t = q1;
+                q1 = q2;
+                q2 = t;
+                flag = true;
+            }
+        }
+        return ans;
+    }
+    
     /*
     Given the root of a binary tree, determine if it is a valid binary search tree (BST).
 
